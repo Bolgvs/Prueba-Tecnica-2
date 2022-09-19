@@ -27,12 +27,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void{
-    const {username, password} =  this.form;
 
-    this.authService.login(username,password).subscribe(
+    this.authService.login().subscribe(
       data => {
         this.tokenStorageService.saveToken(data["token"]);
-        this.tokenStorageService.saveUser(username);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.reloadPage();

@@ -1,53 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+const BASE_URL = 'https://api.themoviedb.org/3/'
+
+const AUTH_API = 'authentication/'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  apiUrl: string = 'https://api.themoviedb.org/3/movie/76341?api_key';
-
   constructor(private http: HttpClient) { }
 
-  // Show lists of item
-  list(): Observable<any> {
-    return this.http.get(this.apiUrl).pipe(
-      catchError(this.handleError)
-    );
+  ngOnInit(): void {
   }
 
-  // Create new item
-  getItem(id: any): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`).pipe(
-      catchError(this.handleError)
-    );
+  generateAccessToken(): Observable<any> {
+    return this.http.get(BASE_URL + AUTH_API + "token/new?api_key=" + "e137afe119570b6a381023d96647b58b");
   }
 
-  // Search By Name
-  filterByName(name: any): Observable<any> {
-    return this.http.get(`${this.apiUrl}?name_like=${name}`).pipe(
-      catchError(this.handleError)
-    );
+  generateNewSession(approvedToken: string): Observable<any> {
+    return this.http.post((BASE_URL + AUTH_API + "session/new?api_key=" + approvedToken), null);
   }
-
-  // Handle API errors
-  handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    return throwError(
-      'Something bad happened; please try again later.');
-  }
-
-  returnFilm(id: any) {
-    return this.http.get(this.apiUrl + "movie/" + id)
-  }
-
 }
