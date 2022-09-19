@@ -1,0 +1,21 @@
+<div>
+  <h1>Characters</h1>
+</div>
+
+<div class="container" *ngIf="films != null; else wait">
+  <div class="row">
+    <div class="col-2 m-5" *ngFor="let film of films">
+      <div class="card d-flex flex-row" style="width: 18rem">
+        <div>
+          <img src="" class="card-img-top" />
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <a [routerLink]="['films', film.id]" class="btn btn-primary"> See more </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #wait>Waiting for data</ng-template>
