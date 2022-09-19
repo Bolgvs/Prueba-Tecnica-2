@@ -8,6 +8,10 @@ Built with Angular, and Bootstrap 5.2.
 #### Security: 
 * JWT 
 
+## Desplegada en Vercel
+
+link: https://prueba-tecnica-2.vercel.app/home
+
 ## 🛸 Technologies & Versions
 
 * TypeScript
